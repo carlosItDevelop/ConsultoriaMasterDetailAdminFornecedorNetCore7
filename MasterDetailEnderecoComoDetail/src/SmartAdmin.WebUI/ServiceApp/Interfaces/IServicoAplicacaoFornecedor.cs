@@ -9,14 +9,14 @@ namespace Cooperchip.ITDeveloper.Application.Interfaces
     {
 
         // ========/ Leitura =========================================//
-        Task<IEnumerable<RepresentanteLegalViewModel>> ObterTodosApplication();
-        Task<RepresentanteLegalViewModel> ObterFornecedorEnderecoApplication(Guid id);
-        Task<RepresentanteLegalViewModel> ObterFornecedorProdutosEnderecoApplication(Guid id);
+        Task<IEnumerable<FornecedorViewModel>> ObterTodosApplication();
+        Task<FornecedorViewModel> ObterFornecedorEnderecoApplication(Guid id);
+        Task<FornecedorViewModel> ObterFornecedorProdutosEnderecoApplication(Guid id);
 
         // ========/ Escrita =========================================//
-        Task AdicionarApplication(RepresentanteLegalViewModel fvm);
-        Task AtualizarApplication(RepresentanteLegalViewModel fvm);
+        Task AdicionarApplication(FornecedorViewModel fvm);
+        Task AtualizarApplication(FornecedorViewModel fvm);
         Task RemoverApplication(Guid id);
-        Task AtualizarEnderecoApplication(RepresentanteLegalViewModel fvm);
+        Task AtualizarEnderecoApplication(FornecedorViewModel fvm);
     }
 }

@@ -25,36 +25,36 @@ namespace Cooperchip.ITDeveloper.Application.Services
         }
 
         // ========/ Leitura =========================================//
-        public async Task<IEnumerable<RepresentanteLegalViewModel>> ObterTodosApplication()
+        public async Task<IEnumerable<FornecedorViewModel>> ObterTodosApplication()
         {
-            return _mapper.Map<IEnumerable<RepresentanteLegalViewModel>>(await _fornecedorRepository.ObterTodos());
+            return _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
         }
-        public async Task<RepresentanteLegalViewModel> ObterFornecedorEnderecoApplication(Guid id)
+        public async Task<FornecedorViewModel> ObterFornecedorEnderecoApplication(Guid id)
         {
-            return _mapper.Map<RepresentanteLegalViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
+            return _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
         }
-        public async Task<RepresentanteLegalViewModel> ObterFornecedorProdutosEnderecoApplication(Guid id)
+        public async Task<FornecedorViewModel> ObterFornecedorProdutosEnderecoApplication(Guid id)
         {
-            return _mapper.Map<RepresentanteLegalViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id));
+            return _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id));
         }
 
         // ========/ Escrita =========================================//
 
-        public async Task AdicionarApplication(RepresentanteLegalViewModel fvm)
+        public async Task AdicionarApplication(FornecedorViewModel fvm)
         {
-            await _fornecedorService.Adicionar(_mapper.Map<RepresentanteLegal>(fvm));
+            await _fornecedorService.Adicionar(_mapper.Map<Fornecedor>(fvm));
         }
-        public async Task AtualizarApplication(RepresentanteLegalViewModel fvm)
+        public async Task AtualizarApplication(FornecedorViewModel fvm)
         {
-            await _fornecedorService.Atualizar(_mapper.Map<RepresentanteLegal>(fvm));
+            await _fornecedorService.Atualizar(_mapper.Map<Fornecedor>(fvm));
         }
         public async Task RemoverApplication(Guid id)
         {
             await _fornecedorService.Remover(id);
         }
-        public async Task AtualizarEnderecoApplication(RepresentanteLegalViewModel fvm)
+        public async Task AtualizarEnderecoApplication(FornecedorViewModel fvm)
         {
-            await _fornecedorService.AtualizarEndereco(_mapper.Map<RepresentanteLegal>(fvm.RepresentanteLegal));
+            await _fornecedorService.AtualizarEndereco(_mapper.Map<RepresentanteLegal>(fvm.Representante));
         }
 
     }

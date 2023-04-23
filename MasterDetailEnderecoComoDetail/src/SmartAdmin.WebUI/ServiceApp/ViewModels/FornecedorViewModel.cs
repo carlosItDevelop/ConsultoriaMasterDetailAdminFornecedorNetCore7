@@ -21,7 +21,7 @@ namespace Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels
         [DisplayName("Tipo")]
         public int TipoFornecedor { get; set; }
 
-        public RepresentanteLegalViewModel representante { get; set; }
+        public RepresentanteLegalViewModel Representante { get; set; }
 
         [DisplayName("Ativo?")]
         public bool Ativo { get; set; }

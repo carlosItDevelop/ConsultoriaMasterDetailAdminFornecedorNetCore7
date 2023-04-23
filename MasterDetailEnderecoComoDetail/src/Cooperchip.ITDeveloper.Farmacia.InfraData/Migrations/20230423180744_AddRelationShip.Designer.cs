@@ -4,6 +4,7 @@ using Cooperchip.ITDeveloper.Farmacia.InfraData.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class FarmaciaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230423180744_AddRelationShip")]
+    partial class AddRelationShip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

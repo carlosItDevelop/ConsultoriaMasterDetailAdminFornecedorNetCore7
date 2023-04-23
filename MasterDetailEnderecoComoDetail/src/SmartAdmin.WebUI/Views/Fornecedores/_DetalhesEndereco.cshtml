@@ -4,8 +4,8 @@
 <!-- INVOICE TRIAGEM  -->
 @{
     ViewData["Title"] = "Endereço";
-    ViewData["PageName"] = "Endereco";
-    ViewData["Category1"] = "Endereco";
+    ViewData["PageName"] = "Representante";
+    ViewData["Category1"] = "Representante";
     ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Endereço";
 }
 
@@ -18,25 +18,19 @@
                     <thead class="bg-primary-600">
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Endereco.Logradouro)
+                                @Html.DisplayNameFor(model => model.Representante.Nome)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Endereco.Numero)
+                                @Html.DisplayNameFor(model => model.Representante.SobreNome)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Endereco.Complemento)
+                                @Html.DisplayNameFor(model => model.Representante.Documento)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Endereco.Bairro)
+                                @Html.DisplayNameFor(model => model.Representante.Email)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Endereco.Cep)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Endereco.Cidade)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Endereco.Estado)
+                                @Html.DisplayNameFor(model => model.Representante.Telefone)
                             </th>
                             <th></th>
                         </tr>
@@ -44,25 +38,19 @@
                     <tbody>
                         <tr>
                             <td>
-                                @Html.DisplayFor(model => model.Endereco.Logradouro)
+                            @Html.DisplayFor(model => model.Representante.Nome)
                             </td>
                             <td>
-                                @Html.DisplayFor(model => model.Endereco.Numero)
+                            @Html.DisplayFor(model => model.Representante.SobreNome)
                             </td>
                             <td>
-                                @Html.DisplayFor(model => model.Endereco.Complemento)
+                            @Html.DisplayFor(model => model.Representante.Documento)
                             </td>
                             <td>
-                                @Html.DisplayFor(model => model.Endereco.Bairro)
+                            @Html.DisplayFor(model => model.Representante.Email)
                             </td>
                             <td>
-                                @Html.DisplayFor(model => model.Endereco.Cep)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => model.Endereco.Cidade)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => model.Endereco.Estado)
+                            @Html.DisplayFor(model => model.Representante.Telefone)
                             </td>
 
                             <td class="text-center">

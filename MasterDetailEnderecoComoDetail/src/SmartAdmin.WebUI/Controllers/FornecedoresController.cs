@@ -137,7 +137,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
                 return NotFound();
             }
 
-            return PartialView("_AtualizarEndereco", new FornecedorViewModel { Endereco = fornecedor.Endereco });
+            return PartialView("_AtualizarEndereco", new FornecedorViewModel { Representante = fornecedor.Representante });
         }
 
         [Route("atualizar-endereco-fornecedor/{id:guid}")]
@@ -153,7 +153,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 
             if (!OperacaoValida()) return PartialView("_AtualizarEndereco", fornecedorViewModel);
 
-            var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Endereco.FornecedorId });
+            var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Representante.FornecedorId });
             return Json(new { success = true, url });
         }
 
