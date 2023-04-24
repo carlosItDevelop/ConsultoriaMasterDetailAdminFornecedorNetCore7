@@ -1,7 +1,4 @@
-﻿
-using Cooperchip.ITDeveloper.Application.Interfaces;
-using Cooperchip.ITDeveloper.Application.Services;
-using Cooperchip.ITDeveloper.Farmacia.Domain.Interfaces;
+﻿using Cooperchip.ITDeveloper.Farmacia.Domain.Interfaces;
 using Cooperchip.ITDeveloper.Farmacia.Domain.Notificacoes;
 using Cooperchip.ITDeveloper.Farmacia.InfraData.Context;
 using Cooperchip.ITDeveloper.Farmacia.InfraData.Repository;
@@ -17,8 +14,6 @@ namespace Cooperchip.ITDeveloper.Mvc.Configuration
         public static IServiceCollection AddBoundedContext(this IServiceCollection services, IConfiguration configuration)
         {
 
-            // Farmacia
-            services.AddScoped<IServicoAplicacaoProduto, ServicoAplicacaoProduto>();
             // +
             services.AddScoped<ApplicationDbContext>();
 

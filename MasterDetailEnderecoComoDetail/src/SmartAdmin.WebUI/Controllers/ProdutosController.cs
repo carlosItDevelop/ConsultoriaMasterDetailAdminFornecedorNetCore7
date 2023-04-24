@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Cooperchip.ITDeveloper.Application.Interfaces;
+using AutoMapper;
+using Cooperchip.ITDeveloper.Farmacia.Domain.Entities;
+using Cooperchip.ITDeveloper.Farmacia.Domain.Interfaces;
 using Cooperchip.ITDeveloper.Farmacia.Domain.Notificacoes;
 using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -11,25 +14,35 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 {
     public class ProdutosController : BaseController
     {
-        private readonly IServicoAplicacaoProduto _serviceProdutoApp;
 
-        public ProdutosController(
-            INotificador notificador,
-            IServicoAplicacaoProduto serviceProdutoApp) : base(notificador)
+
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly IFornecedorRepository _fornecedorRepository;
+        private readonly IProdutoService _produtoService;
+        private readonly IMapper _mapper;
+
+        public ProdutosController(INotificador notificador, IProdutoRepository produtoRepository,
+            IFornecedorRepository fornecedorRepository, IProdutoService produtoService, IMapper mapper) : base(notificador)
         {
-            _serviceProdutoApp = serviceProdutoApp;
+            _produtoRepository = produtoRepository;
+            _fornecedorRepository = fornecedorRepository;
+            _produtoService = produtoService;
+            _mapper = mapper;
+
         }
 
         [Route("lista-de-produtos")]
         public async Task<IActionResult> Index()
         {
-            return View(await _serviceProdutoApp.ObterProdutosFornecedoresAplicacao());
+            return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterProdutosFornecedores()));
         }
 
         [Route("dados-do-produto/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            var produtoViewModel = await ObterProduto(id);
+
+            var produtoViewModel = _mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterProdutoFornecedor(id));
+            produtoViewModel.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
 
             if (produtoViewModel == null)
             {
@@ -40,6 +53,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         }
 
 
+        #region: Usando PopularFornecedores
         [Route("novo-produto")]
         public async Task<IActionResult> Create()
         {
@@ -49,11 +63,13 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         }
 
 
+
         [Route("novo-produto")]
         [HttpPost]
         public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
         {
             produtoViewModel = await PopularFornecedores(produtoViewModel);
+
             if (!ModelState.IsValid) return View(produtoViewModel);
 
             var imgPrefixo = Guid.NewGuid() + "_";
@@ -63,17 +79,33 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
             }
 
             produtoViewModel.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;
-            await _serviceProdutoApp.AdicionarApplication(produtoViewModel);
+            await _produtoService.Adicionar(_mapper.Map<Produto>(produtoViewModel));
 
             if (!OperacaoValida()) return View(produtoViewModel);
 
             return RedirectToAction("Index");
         }
 
+
+        /// <summary>
+        /// Usado para popular a lista de Fornecedores para o DropDown
+        /// de onde pode-se escolher de quel Fornecedor pertence o Produto!
+        /// </summary>
+        /// <param name="produtoViewModel"></param>
+        /// <returns></returns>
+        private async Task<ProdutoViewModel> PopularFornecedores(ProdutoViewModel produtoViewModel)
+        {
+            produtoViewModel.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
+            return produtoViewModel;
+        }
+        #endregion
+
+
+
         [Route("editar-produto/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var produtoViewModel = await ObterProduto(id);
+            var produtoViewModel = _mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterProdutoFornecedor(id));
 
             if (produtoViewModel == null)
             {
@@ -89,7 +121,9 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         {
             if (id != produtoViewModel.Id) return NotFound();
 
-            var produtoAtualizacao = await ObterProduto(id);
+            var produtoAtualizacao = _mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterProdutoFornecedor(id));
+            produtoAtualizacao.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
+
             produtoViewModel.Fornecedor = produtoAtualizacao.Fornecedor;
             produtoViewModel.Imagem = produtoAtualizacao.Imagem;
             if (!ModelState.IsValid) return View(produtoViewModel);
@@ -110,7 +144,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
             produtoAtualizacao.Valor = produtoViewModel.Valor;
             produtoAtualizacao.Ativo = produtoViewModel.Ativo;
 
-            await _serviceProdutoApp.AtualizarApplication(produtoAtualizacao);
+            await _produtoService.Atualizar(_mapper.Map<Produto>(produtoAtualizacao));
 
             if (!OperacaoValida()) return View(produtoViewModel);
 
@@ -120,7 +154,8 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("excluir-produto/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var produto = await ObterProduto(id);
+            var produto = _mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterProdutoFornecedor(id));
+            produto.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
 
             if (produto == null)
             {
@@ -130,35 +165,28 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
             return View(produto);
         }
 
+
         [Route("excluir-produto/{id:guid}")]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var produto = await ObterProduto(id);
+            var produtoViewModel = _mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterProdutoFornecedor(id));
+            produtoViewModel.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
 
-            if (produto == null)
+            if (produtoViewModel == null)
             {
                 return NotFound();
             }
 
-            await _serviceProdutoApp.RemoverApplication(id);
+            await _produtoService.Remover(id);
 
-            if (!OperacaoValida()) return View(produto);
+            if (!OperacaoValida()) return View(produtoViewModel);
 
             TempData["Sucesso"] = "Produto excluido com sucesso!";
 
             return RedirectToAction("Index");
         }
 
-        private async Task<ProdutoViewModel> ObterProduto(Guid id)
-        {
-            return await _serviceProdutoApp.ObterProdutoApplication(id);
-        }
-
-        private async Task<ProdutoViewModel> PopularFornecedores(ProdutoViewModel produtoViewModel)
-        {
-            return await _serviceProdutoApp.PopularFornecedoresApplication(produtoViewModel);
-        }
 
         private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
         {
