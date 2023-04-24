@@ -14,14 +14,14 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Repository
         {
         }
 
-        public async Task<Fornecedor> ObterFornecedorEndereco(Guid id)
+        public async Task<Fornecedor> ObterFornecedorRepresentanteLegal(Guid id)
         {
             return await Db.Fornecedores.AsNoTracking()
                 .Include(c => c.RepresentanteLegal)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
+        public async Task<Fornecedor> ObterFornecedorProdutosRepresentanteLegal(Guid id)
         {
             return await Db.Fornecedores.AsNoTracking()
                 .Include(c => c.Produtos)

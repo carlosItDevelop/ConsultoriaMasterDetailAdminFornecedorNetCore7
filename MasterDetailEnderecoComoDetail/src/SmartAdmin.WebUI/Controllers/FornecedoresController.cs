@@ -35,7 +35,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("dados-do-fornecedor/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
+            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorRepresentanteLegal(id));
 
             if (fornecedorViewModel == null)
             {
@@ -70,7 +70,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         {
             var fornecedorViewModel =
                 _mapper.Map<FornecedorViewModel>(await _fornecedorRepository
-                .ObterFornecedorProdutosEndereco(id));
+                .ObterFornecedorProdutosRepresentanteLegal(id));
 
             if (fornecedorViewModel == null)
             {
@@ -90,7 +90,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 
             await _fornecedorRepository.Atualizar(_mapper.Map<Fornecedor>(fornecedorViewModel));
 
-            if (!OperacaoValida()) return View(_mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id)));
+            if (!OperacaoValida()) return View(_mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosRepresentanteLegal(id)));
 
             return RedirectToAction("Index");
         }
@@ -98,7 +98,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("excluir-fornecedor/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
+            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorRepresentanteLegal(id));
 
             if (fornecedorViewModel == null)
             {
@@ -112,7 +112,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var fornecedor = _fornecedorRepository.ObterFornecedorProdutosEndereco(id);
+            var fornecedor = _fornecedorRepository.ObterFornecedorProdutosRepresentanteLegal(id);
 
             if (fornecedor == null) return NotFound();
 
@@ -126,7 +126,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("obter-endereco-fornecedor/{id:guid}")]
         public async Task<IActionResult> ObterEndereco(Guid id)
         {
-            var fornecedor = await _fornecedorRepository.ObterFornecedorProdutosEndereco(id);
+            var fornecedor = await _fornecedorRepository.ObterFornecedorProdutosRepresentanteLegal(id);
 
             if (fornecedor == null)
             {
@@ -137,9 +137,9 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         }
 
         [Route("atualizar-endereco-fornecedor/{id:guid}")]
-        public async Task<IActionResult> AtualizarEndereco(Guid id)
+        public async Task<IActionResult> AtualizarRepresentanteLegal(Guid id)
         {
-            var fornecedor = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
+            var fornecedor = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorRepresentanteLegal(id));
 
             if (fornecedor == null)
             {
@@ -151,7 +151,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 
         [Route("atualizar-endereco-fornecedor/{id:guid}")]
         [HttpPost]
-        public async Task<IActionResult> AtualizarEndereco(FornecedorViewModel fornecedorViewModel)
+        public async Task<IActionResult> AtualizarRepresentanteLegal(FornecedorViewModel fornecedorViewModel)
         {
             ModelState.Remove("Nome");
             ModelState.Remove("Documento");
@@ -159,7 +159,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
             if (!ModelState.IsValid) return PartialView("_AtualizarEndereco", fornecedorViewModel);
 
             // Todo: Erro aqui!
-            await _fornecedorService.AtualizarEndereco(_mapper.Map<RepresentanteLegal>(fornecedorViewModel.RepresentanteLegal));
+            await _fornecedorService.AtualizarRepresentanteLegal(_mapper.Map<RepresentanteLegal>(fornecedorViewModel.RepresentanteLegal));
 
             if (!OperacaoValida()) return PartialView("_AtualizarEndereco", fornecedorViewModel);
 
