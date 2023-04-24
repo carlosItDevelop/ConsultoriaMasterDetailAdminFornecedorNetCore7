@@ -11,7 +11,7 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Repository
     {
         public EnderecoRepository(ApplicationDbContext context) : base(context) { }
 
-        public async Task<RepresentanteLegal> ObterEnderecoPorFornecedor(Guid fornecedorId)
+        public async Task<RepresentanteLegal> ObterRepresentantePorFornecedor(Guid fornecedorId)
         {
             return await Db.RepresentantesLegais.AsNoTracking()
                 .FirstOrDefaultAsync(f => f.FornecedorId == fornecedorId);

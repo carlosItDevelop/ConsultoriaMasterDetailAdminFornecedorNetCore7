@@ -64,7 +64,7 @@ namespace Cooperchip.ITDeveloper.Farmacia.Services
                 return;
             }
 
-            var endereco = await _enderecoRepository.ObterEnderecoPorFornecedor(id);
+            var endereco = await _enderecoRepository.ObterRepresentantePorFornecedor(id);
 
             if (endereco != null)
             {
