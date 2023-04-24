@@ -15,7 +15,6 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
     public class ProdutosController : BaseController
     {
 
-
         private readonly IProdutoRepository _produtoRepository;
         private readonly IFornecedorRepository _fornecedorRepository;
         private readonly IProdutoService _produtoService;

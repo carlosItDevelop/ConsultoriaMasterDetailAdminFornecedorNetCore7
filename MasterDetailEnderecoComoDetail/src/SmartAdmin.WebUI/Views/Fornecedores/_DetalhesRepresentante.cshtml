@@ -3,10 +3,10 @@
 
 <!-- INVOICE TRIAGEM  -->
 @{
-    ViewData["Title"] = "Endereço";
-    ViewData["PageName"] = "Representante";
-    ViewData["Category1"] = "Representante";
-    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Endereço";
+    ViewData["Title"] = "Representante Legal";
+    ViewData["PageName"] = "RepresentanteLegal";
+    ViewData["Category1"] = "RepresentanteLegal";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Representante Legal";
 }
 
 <div class="row">
@@ -54,7 +54,6 @@
                             </td>
 
                             <td class="text-center">
-                                @*<span title="Editar" class="fa fa-pencil-alt"></span>*@
                                 <a asp-action="AtualizarRepresentanteLegal" data-modal="" asp-route-id="@Model.Id" class="btn btn-outline-info" data-toggle="tooltip" data-placement="bottom" title="Atualizar Endereço" data-original-title="Atualizar Endereço"><i class="fa fa-edit"></i> </a>
                             </td>
 
@@ -77,8 +76,6 @@
 
 
 @section ScriptsBlock {
-
-    @*    <partial name="PartialViews/_ScriptDataTables" />*@
 
     <script>
         SetModal();

@@ -15,15 +15,16 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 
         private readonly IFornecedorRepository _fornecedorRepository;
         private readonly IFornecedorService _fornecedorService;
-
         private readonly IMapper _mapper;
 
         public FornecedoresController(INotificador notificador,
                                       IFornecedorRepository fornecedorRepository,
-                                      IMapper mapper) : base(notificador)
+                                      IMapper mapper,
+                                      IFornecedorService fornecedorService) : base(notificador)
         {
             _fornecedorRepository = fornecedorRepository;
             _mapper = mapper;
+            _fornecedorService = fornecedorService;
         }
 
         [Route("lista-de-fornecedores")]
@@ -123,20 +124,20 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
             return RedirectToAction("Index");
         }
 
-        [Route("obter-endereco-fornecedor/{id:guid}")]
-        public async Task<IActionResult> ObterEndereco(Guid id)
+        [Route("obter-representante-fornecedor/{id:guid}")]
+        public async Task<IActionResult> ObterRepresentanteLegal(Guid id)
         {
-            var fornecedor = await _fornecedorRepository.ObterFornecedorProdutosRepresentanteLegal(id);
+            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosRepresentanteLegal(id));
 
-            if (fornecedor == null)
+            if (fornecedorViewModel == null)
             {
                 return NotFound();
             }
 
-            return PartialView("_DetalhesEndereco", fornecedor);
+            return PartialView("_DetalhesRepresentante", fornecedorViewModel);
         }
 
-        [Route("atualizar-endereco-fornecedor/{id:guid}")]
+        [Route("atualizar-representante-fornecedor/{id:guid}")]
         public async Task<IActionResult> AtualizarRepresentanteLegal(Guid id)
         {
             var fornecedor = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorRepresentanteLegal(id));
@@ -146,24 +147,32 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
                 return NotFound();
             }
 
-            return PartialView("_AtualizarEndereco", new FornecedorViewModel { RepresentanteLegal = fornecedor.RepresentanteLegal });
+            return PartialView("_AtualizarRepresentante", new FornecedorViewModel { RepresentanteLegal = fornecedor.RepresentanteLegal });
         }
 
-        [Route("atualizar-endereco-fornecedor/{id:guid}")]
+        [Route("atualizar-representante-fornecedor/{id:guid}")]
         [HttpPost]
         public async Task<IActionResult> AtualizarRepresentanteLegal(FornecedorViewModel fornecedorViewModel)
         {
             ModelState.Remove("Nome");
             ModelState.Remove("Documento");
 
-            if (!ModelState.IsValid) return PartialView("_AtualizarEndereco", fornecedorViewModel);
+            if (!ModelState.IsValid) return PartialView("_AtualizarRepresentante", fornecedorViewModel);
 
-            // Todo: Erro aqui!
+            if (fornecedorViewModel.RepresentanteLegal == null)
+            {
+                Console.WriteLine($"\n\n\nfornecedorViewModel.RepresentanteLegal é nulo");
+                return PartialView("_AtualizarRepresentante", fornecedorViewModel);
+            }
+
             await _fornecedorService.AtualizarRepresentanteLegal(_mapper.Map<RepresentanteLegal>(fornecedorViewModel.RepresentanteLegal));
 
-            if (!OperacaoValida()) return PartialView("_AtualizarEndereco", fornecedorViewModel);
+            if (!OperacaoValida()) {
+                Console.WriteLine("Operáção Inválida");
+                return PartialView("_AtualizarRepresentante", fornecedorViewModel);
+            }
 
-            var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.RepresentanteLegal.FornecedorId });
+            var url = Url.Action("ObterRepresentanteLegal", "Fornecedores", new { id = fornecedorViewModel.RepresentanteLegal.FornecedorId });
             return Json(new { success = true, url });
         }
 

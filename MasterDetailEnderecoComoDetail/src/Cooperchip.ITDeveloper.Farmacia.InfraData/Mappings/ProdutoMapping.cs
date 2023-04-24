@@ -22,6 +22,9 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(100)");
 
+            builder.Property(x=>x.Valor)
+                .HasColumnType("decimal(18, 2)");
+
             builder.ToTable("Produtos");
         }
     }
