@@ -6,7 +6,7 @@ namespace Cooperchip.ITDeveloper.Farmacia.Domain.Interfaces
 {
     public interface IFornecedorRepository : IRepository<Fornecedor>
     {
-        Task<Fornecedor> ObterFornecedorRepresentanteLegal(Guid id);
-        Task<Fornecedor> ObterFornecedorProdutosRepresentanteLegal(Guid id);
+        Task<Fornecedor> ObterFornecedorEndereco(Guid id);
+        Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id);
     }
 }

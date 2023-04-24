@@ -49,7 +49,7 @@ namespace Cooperchip.ITDeveloper.Farmacia.Services
             await _fornecedorRepository.Atualizar(fornecedor);
         }
 
-        public async Task AtualizarRepresentanteLegal(RepresentanteLegal representante)
+        public async Task AtualizarEndereco(RepresentanteLegal representante)
         {
             if (!ExecutarValidacao(new RepresentanteLegalValidation(), representante)) return;
 
@@ -58,7 +58,7 @@ namespace Cooperchip.ITDeveloper.Farmacia.Services
 
         public async Task Remover(Guid id)
         {
-            if (_fornecedorRepository.ObterFornecedorProdutosRepresentanteLegal(id).Result.Produtos.Any())
+            if (_fornecedorRepository.ObterFornecedorProdutosEndereco(id).Result.Produtos.Any())
             {
                 Notificar("O fornecedor possui produtos cadastrados!");
                 return;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cooperchip.ITDeveloper.Farmacia.Domain.Entities
 {
@@ -15,5 +16,6 @@ namespace Cooperchip.ITDeveloper.Farmacia.Domain.Entities
 
         /* EF Relations */
         public Fornecedor Fornecedor { get; set; }
+
     }
 }

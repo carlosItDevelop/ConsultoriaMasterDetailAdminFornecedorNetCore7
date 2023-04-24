@@ -9,6 +9,6 @@ namespace Cooperchip.ITDeveloper.Farmacia.Domain.Interfaces
         Task Adicionar(Fornecedor fornecedor);
         Task Atualizar(Fornecedor fornecedor);
         Task Remover(Guid id);
-        Task AtualizarRepresentanteLegal(RepresentanteLegal representante);
+        Task AtualizarEndereco(RepresentanteLegal representante);
     }
 }

@@ -14,31 +14,33 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Repository
         {
         }
 
-        public async Task<Fornecedor> ObterFornecedorRepresentanteLegal(Guid id)
+        public async Task<Fornecedor> ObterFornecedorEndereco(Guid id)
         {
             return await Db.Fornecedores.AsNoTracking()
                 .Include(c => c.RepresentanteLegal)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Fornecedor> ObterFornecedorProdutosRepresentanteLegal(Guid id)
+        public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
         {
-            //var fornecedor = await Db.Fornecedores
-            //    .Include(c => c.RepresentanteLegal)
-            //    .Include(c => c.Produtos).AsNoTracking()
-            //    .FirstOrDefaultAsync(c => c.Id == id);
+            var fornecedor = await Db.Fornecedores
+                .Include(c => c.RepresentanteLegal)
+                .Include(c => c.Produtos).AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == id);
 
-            var fornecedor = await Db.Fornecedores.FirstOrDefaultAsync(c => c.Id == id);
-            var representante = await Db.RepresentantesLegais.FirstOrDefaultAsync(c => c.FornecedorId == id);
-            var produtos = await Db.Produtos.Where(c => c.FornecedorId == id).ToListAsync();
+            //var fornecedor = Db.Fornecedores.FirstOrDefaultAsync(c => c.Id == id).Result;
+            //var produtos = Db.Produtos.Where(c => c.FornecedorId == id).ToListAsync().Result;
+            //var representante = Db.RepresentantesLegais.FirstOrDefaultAsync(c => c.FornecedorId == id).Result;
 
-            if (fornecedor != null)
-            {
-                fornecedor.AdicionarRepresentante(representante);
-                fornecedor.AdicionarListaDeProdutos(produtos);
-            }
 
-            return fornecedor;
+            //if (fornecedor != null)
+            //{
+            //    fornecedor.AdicionarRepresentante(representante);
+            //    fornecedor.AdicionarListaDeProdutos(produtos);
+            //}
+
+
+            return await Task.FromResult(fornecedor);
         }
     }
 }
