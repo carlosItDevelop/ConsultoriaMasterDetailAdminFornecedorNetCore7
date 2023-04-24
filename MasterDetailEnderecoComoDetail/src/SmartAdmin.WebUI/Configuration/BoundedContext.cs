@@ -18,7 +18,6 @@ namespace Cooperchip.ITDeveloper.Mvc.Configuration
         {
 
             // Farmacia
-            services.AddScoped<IServicoAplicacaoFornecedor, ServicoAplicacaoFornecedor>();
             services.AddScoped<IServicoAplicacaoProduto, ServicoAplicacaoProduto>();
             // +
             services.AddScoped<ApplicationDbContext>();

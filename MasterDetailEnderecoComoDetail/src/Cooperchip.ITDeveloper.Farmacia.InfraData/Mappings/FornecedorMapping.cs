@@ -18,7 +18,12 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(14)");
 
-            // 1 : 1 => Fornecedor : Endereco
+
+            // 1 : 1 => Endereco : Repreentante
+            builder.HasOne(f => f.Endereco)
+                .WithOne(e => e.Fornecedor);
+
+            // 1 : 1 => Fornecedor : Repreentante
             builder.HasOne(f => f.RepresentanteLegal)
                 .WithOne(e => e.Fornecedor);
 

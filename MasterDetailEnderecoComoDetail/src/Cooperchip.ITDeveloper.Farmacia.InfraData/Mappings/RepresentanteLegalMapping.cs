@@ -18,7 +18,12 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Mappings
             builder.Property(x => x.Email)
                  .HasColumnType("varchar(255)");
             builder.Property(x => x.Telefone).IsRequired().HasColumnType("varchar(13)");
-            builder.Property(x => x.FornecedorId).IsRequired();
+
+            // 1 : 1 => Representante : Fornecedor
+            builder.HasOne(f => f.Fornecedor)
+                .WithOne(e => e.RepresentanteLegal);
+
+
             builder.ToTable("RepresentanteLegal");
 
         }

@@ -4,6 +4,7 @@ using Cooperchip.ITDeveloper.Farmacia.InfraData.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class FarmaciaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230423225905_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +62,8 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FornecedorId");
+                    b.HasIndex("FornecedorId")
+                        .IsUnique();
 
                     b.ToTable("Enderecos", (string)null);
                 });
@@ -166,8 +169,8 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Migrations
             modelBuilder.Entity("Cooperchip.ITDeveloper.Farmacia.Domain.Entities.Endereco", b =>
                 {
                     b.HasOne("Cooperchip.ITDeveloper.Farmacia.Domain.Entities.Fornecedor", "Fornecedor")
-                        .WithMany()
-                        .HasForeignKey("FornecedorId")
+                        .WithOne("Endereco")
+                        .HasForeignKey("Cooperchip.ITDeveloper.Farmacia.Domain.Entities.Endereco", "FornecedorId")
                         .IsRequired();
 
                     b.Navigation("Fornecedor");
@@ -195,6 +198,8 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Migrations
 
             modelBuilder.Entity("Cooperchip.ITDeveloper.Farmacia.Domain.Entities.Fornecedor", b =>
                 {
+                    b.Navigation("Endereco");
+
                     b.Navigation("Produtos");
 
                     b.Navigation("RepresentanteLegal");

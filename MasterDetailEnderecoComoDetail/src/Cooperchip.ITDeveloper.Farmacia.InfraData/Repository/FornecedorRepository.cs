@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Cooperchip.ITDeveloper.Farmacia.Domain.Entities;
 using Cooperchip.ITDeveloper.Farmacia.Domain.Interfaces;
@@ -22,10 +23,24 @@ namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Repository
 
         public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
         {
-            return await Db.Fornecedores.AsNoTracking()
-                .Include(c => c.Produtos)
+            var fornecedor = await Db.Fornecedores
                 .Include(c => c.RepresentanteLegal)
+                .Include(c => c.Produtos).AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
+
+            //var fornecedor = Db.Fornecedores.FirstOrDefaultAsync(c => c.Id == id).Result;
+            //var produtos = Db.Produtos.Where(c => c.FornecedorId == id).ToListAsync().Result;
+            //var representante = Db.RepresentantesLegais.FirstOrDefaultAsync(c => c.FornecedorId == id).Result;
+
+
+            //if (fornecedor != null)
+            //{
+            //    fornecedor.AdicionarRepresentante(representante);
+            //    fornecedor.AdicionarListaDeProdutos(produtos);
+            //}
+
+
+            return await Task.FromResult(fornecedor);
         }
     }
 }

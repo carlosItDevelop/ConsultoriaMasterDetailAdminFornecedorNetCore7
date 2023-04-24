@@ -35,7 +35,8 @@ namespace Cooperchip.ITDeveloper.Application.Services
         }
         public async Task<FornecedorViewModel> ObterFornecedorProdutosEnderecoApplication(Guid id)
         {
-            return _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id));
+            var vModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id));
+            return vModel;
         }
 
         // ========/ Escrita =========================================//

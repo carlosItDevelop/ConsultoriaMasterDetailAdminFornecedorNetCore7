@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Cooperchip.ITDeveloper.Application.Interfaces;
+using AutoMapper;
+using Cooperchip.ITDeveloper.Farmacia.Domain.Entities;
+using Cooperchip.ITDeveloper.Farmacia.Domain.Interfaces;
 using Cooperchip.ITDeveloper.Farmacia.Domain.Notificacoes;
 using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,25 +13,29 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
     public class FornecedoresController : BaseController
     {
 
-        private readonly IServicoAplicacaoFornecedor _appServiceFornecedor;
+        private readonly IFornecedorRepository _fornecedorRepository;
+        private readonly IFornecedorService _fornecedorService;
 
-        public FornecedoresController(
-            INotificador notificador,
-            IServicoAplicacaoFornecedor appServiceFornecedor) : base(notificador)
+        private readonly IMapper _mapper;
+
+        public FornecedoresController(INotificador notificador,
+                                      IFornecedorRepository fornecedorRepository,
+                                      IMapper mapper) : base(notificador)
         {
-            _appServiceFornecedor = appServiceFornecedor;
+            _fornecedorRepository = fornecedorRepository;
+            _mapper = mapper;
         }
 
         [Route("lista-de-fornecedores")]
         public async Task<IActionResult> Index()
         {
-            return View(await _appServiceFornecedor.ObterTodosApplication());
+            return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
         }
 
         [Route("dados-do-fornecedor/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            var fornecedorViewModel = await ObterFornecedorEndereco(id);
+            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
 
             if (fornecedorViewModel == null)
             {
@@ -50,7 +57,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         {
             if (!ModelState.IsValid) return View(fornecedorViewModel);
 
-            await _appServiceFornecedor.AdicionarApplication(fornecedorViewModel);
+            await _fornecedorService.Adicionar(_mapper.Map<Fornecedor>(fornecedorViewModel));
 
             // Antes de Gravar, verificar se a operação é válida, com Regras de Negósios.
             if (!OperacaoValida()) return View(fornecedorViewModel);
@@ -61,7 +68,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("editar-fornecedor/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var fornecedorViewModel = await ObterFornecedorProdutosEndereco(id);
+            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id));
 
             if (fornecedorViewModel == null)
             {
@@ -79,9 +86,9 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 
             if (!ModelState.IsValid) return View(fornecedorViewModel);
 
-            await _appServiceFornecedor.AtualizarApplication(fornecedorViewModel);
+            await _fornecedorRepository.Atualizar(_mapper.Map<Fornecedor>(fornecedorViewModel));
 
-            if (!OperacaoValida()) return View(await ObterFornecedorProdutosEndereco(id));
+            if (!OperacaoValida()) return View(_mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id)));
 
             return RedirectToAction("Index");
         }
@@ -89,7 +96,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("excluir-fornecedor/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var fornecedorViewModel = await ObterFornecedorEndereco(id);
+            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
 
             if (fornecedorViewModel == null)
             {
@@ -103,11 +110,11 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var fornecedor = await ObterFornecedorEndereco(id);
+            var fornecedor = _fornecedorRepository.ObterFornecedorProdutosEndereco(id);
 
             if (fornecedor == null) return NotFound();
 
-            await _appServiceFornecedor.RemoverApplication(id);
+            await _fornecedorRepository.Remover(id);
 
             if (!OperacaoValida()) return View(fornecedor);
 
@@ -117,7 +124,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("obter-endereco-fornecedor/{id:guid}")]
         public async Task<IActionResult> ObterEndereco(Guid id)
         {
-            var fornecedor = await ObterFornecedorEndereco(id);
+            var fornecedor = await _fornecedorRepository.ObterFornecedorProdutosEndereco(id);
 
             if (fornecedor == null)
             {
@@ -130,7 +137,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("atualizar-endereco-fornecedor/{id:guid}")]
         public async Task<IActionResult> AtualizarEndereco(Guid id)
         {
-            var fornecedor = await ObterFornecedorEndereco(id);
+            var fornecedor = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
 
             if (fornecedor == null)
             {
@@ -149,7 +156,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 
             if (!ModelState.IsValid) return PartialView("_AtualizarEndereco", fornecedorViewModel);
 
-            await _appServiceFornecedor.AtualizarEnderecoApplication(fornecedorViewModel);
+            await _fornecedorService.AtualizarEndereco(_mapper.Map<RepresentanteLegal>(fornecedorViewModel.Representante));
 
             if (!OperacaoValida()) return PartialView("_AtualizarEndereco", fornecedorViewModel);
 
@@ -157,14 +164,5 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
             return Json(new { success = true, url });
         }
 
-        private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
-        {
-            return await _appServiceFornecedor.ObterFornecedorEnderecoApplication(id);
-        }
-
-        private async Task<FornecedorViewModel> ObterFornecedorProdutosEndereco(Guid id)
-        {
-            return await _appServiceFornecedor.ObterFornecedorProdutosEnderecoApplication(id);
-        }
     }
 }

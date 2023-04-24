@@ -26,8 +26,6 @@ namespace Cooperchip.ITDeveloper.Farmacia.Domain.Entities.Validations
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
                 .Length(11, 14).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
-            RuleFor(c => c.FornecedorId)
-                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
         }
     }
 }
