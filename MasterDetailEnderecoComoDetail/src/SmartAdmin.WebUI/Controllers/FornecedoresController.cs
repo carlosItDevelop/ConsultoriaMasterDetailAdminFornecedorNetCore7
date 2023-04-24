@@ -68,7 +68,9 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
         [Route("editar-fornecedor/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var fornecedorViewModel = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id));
+            var fornecedorViewModel =
+                _mapper.Map<FornecedorViewModel>(await _fornecedorRepository
+                .ObterFornecedorProdutosEndereco(id));
 
             if (fornecedorViewModel == null)
             {
@@ -156,6 +158,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 
             if (!ModelState.IsValid) return PartialView("_AtualizarEndereco", fornecedorViewModel);
 
+            // Todo: Erro aqui!
             await _fornecedorService.AtualizarEndereco(_mapper.Map<RepresentanteLegal>(fornecedorViewModel.RepresentanteLegal));
 
             if (!OperacaoValida()) return PartialView("_AtualizarEndereco", fornecedorViewModel);
