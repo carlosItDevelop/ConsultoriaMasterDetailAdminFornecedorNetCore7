@@ -7,7 +7,7 @@ namespace Cooperchip.ITDeveloper.Farmacia.Domain.Entities
         public string Nome { get; set; }
         public string Documento { get; set; }
         public TipoFornecedor TipoFornecedor { get; set; }
-        public Endereco Endereco { get; set; }
+        //public Endereco Endereco { get; set; }
         public RepresentanteLegal RepresentanteLegal { get; set; }
 
         public bool Ativo { get; set; }
@@ -23,8 +23,6 @@ namespace Cooperchip.ITDeveloper.Farmacia.Domain.Entities
         public void AdicionarRepresentante(RepresentanteLegal representanteLegal)
         {
             RepresentanteLegal = representanteLegal;
-        }
-            
-
+        }           
     }
 }
