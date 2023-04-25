@@ -12,6 +12,6 @@
 > **Grande abraço, Alex Araújo :)**	
 
 
-## Get Started
+## Cooperchip na Udemy:
 
 - Quer conhecer mais dos nossos projetos, acesse-os na Udemy: [acesse](https://www.udemy.com/user/carlos-alberto-dos-santos-34/)
