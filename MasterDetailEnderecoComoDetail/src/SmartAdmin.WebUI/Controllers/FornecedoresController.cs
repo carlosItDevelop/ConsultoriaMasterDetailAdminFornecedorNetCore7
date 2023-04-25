@@ -174,6 +174,8 @@ namespace Cooperchip.ITDeveloper.Mvc.Controllers
 
             var url = Url.Action("ObterRepresentanteLegal", "Fornecedores", new { id = fornecedorViewModel.RepresentanteLegal.FornecedorId });
             return Json(new { success = true, url });
+
+
         }
 
     }

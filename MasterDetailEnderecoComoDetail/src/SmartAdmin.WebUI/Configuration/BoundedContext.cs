@@ -23,7 +23,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Configuration
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
 
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IFornecedorService, FornecedorService>();

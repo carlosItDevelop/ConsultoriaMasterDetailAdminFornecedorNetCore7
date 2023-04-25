@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cooperchip.ITDeveloper.Farmacia.InfraData.Repository
 {
-    public class EnderecoRepository : Repository<RepresentanteLegal>, IEnderecoRepository
+    public class RepresentanteRepository : Repository<RepresentanteLegal>, IRepresentanteRepository
     {
-        public EnderecoRepository(ApplicationDbContext context) : base(context) { }
+        public RepresentanteRepository(ApplicationDbContext context) : base(context) { }
 
         public async Task<RepresentanteLegal> ObterRepresentantePorFornecedor(Guid fornecedorId)
         {

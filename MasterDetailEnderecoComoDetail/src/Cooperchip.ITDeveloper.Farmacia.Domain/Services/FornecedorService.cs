@@ -11,15 +11,15 @@ namespace Cooperchip.ITDeveloper.Farmacia.Services
     public class FornecedorService : BaseService, IFornecedorService
     {
         private readonly IFornecedorRepository _fornecedorRepository;
-        private readonly IEnderecoRepository _enderecoRepository;
+        private readonly IRepresentanteRepository _resentanteRepository;
 
         public FornecedorService(
             IFornecedorRepository fornecedorRepository, 
-            IEnderecoRepository enderecoRepository,
+            IRepresentanteRepository resentanteRepository,
             INotificador notificador) : base(notificador)
         {
             _fornecedorRepository = fornecedorRepository;
-            _enderecoRepository = enderecoRepository;
+            _resentanteRepository = resentanteRepository;
         }
 
         public async Task Adicionar(Fornecedor fornecedor)
@@ -53,7 +53,7 @@ namespace Cooperchip.ITDeveloper.Farmacia.Services
         {
             if (!ExecutarValidacao(new RepresentanteLegalValidation(), representante)) return;
 
-            await _enderecoRepository.Atualizar(representante);
+            await _resentanteRepository.Atualizar(representante);
         }
 
         public async Task Remover(Guid id)
@@ -64,11 +64,11 @@ namespace Cooperchip.ITDeveloper.Farmacia.Services
                 return;
             }
 
-            var endereco = await _enderecoRepository.ObterRepresentantePorFornecedor(id);
+            var resentante = await _resentanteRepository.ObterRepresentantePorFornecedor(id);
 
-            if (endereco != null)
+            if (resentante != null)
             {
-                await _enderecoRepository.Remover(endereco.Id);
+                await _resentanteRepository.Remover(resentante.Id);
             }
 
             await _fornecedorRepository.Remover(id);
@@ -77,7 +77,7 @@ namespace Cooperchip.ITDeveloper.Farmacia.Services
         public void Dispose()
         {
             _fornecedorRepository?.Dispose();
-            _enderecoRepository?.Dispose();
+            _resentanteRepository?.Dispose();
         }
     }
 }

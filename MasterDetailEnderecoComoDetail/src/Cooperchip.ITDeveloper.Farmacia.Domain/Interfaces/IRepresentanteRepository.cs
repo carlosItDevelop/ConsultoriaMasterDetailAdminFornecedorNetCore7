@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Cooperchip.ITDeveloper.Farmacia.Domain.Interfaces
 {
-    public interface IEnderecoRepository : IRepository<RepresentanteLegal>
+    public interface IRepresentanteRepository : IRepository<RepresentanteLegal>
     {
         Task<RepresentanteLegal> ObterRepresentantePorFornecedor(Guid fornecedorId);
     }
