@@ -1,0 +1,85 @@
+﻿@using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
+@model FornecedorViewModel
+
+<!-- INVOICE TRIAGEM  -->
+@{
+    ViewData["Title"] = "Representante Legal";
+    ViewData["PageName"] = "RepresentanteLegal";
+    ViewData["Category1"] = "RepresentanteLegal";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Representante Legal";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+            @if (Model != null)
+            {
+
+                <table class="table table-bordered table-hover table-striped w-100">
+                    <thead class="bg-primary-600">
+                        <tr>
+                            <th>
+                            @Html.DisplayNameFor(model => model.RepresentanteLegal.Nome)
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.RepresentanteLegal.SobreNome)
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.RepresentanteLegal.Documento)
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.RepresentanteLegal.Email)
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.RepresentanteLegal.Telefone)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                            @Html.DisplayFor(model => model.RepresentanteLegal.Nome)
+                            </td>
+                            <td>
+                            @Html.DisplayFor(model => model.RepresentanteLegal.SobreNome)
+                            </td>
+                            <td>
+                            @Html.DisplayFor(model => model.RepresentanteLegal.Documento)
+                            </td>
+                            <td>
+                            @Html.DisplayFor(model => model.RepresentanteLegal.Email)
+                            </td>
+                            <td>
+                            @Html.DisplayFor(model => model.RepresentanteLegal.Telefone)
+                            </td>
+
+                            <td class="text-center">
+                                <a asp-action="AtualizarRepresentanteLegal" data-modal="" asp-route-id="@Model.Id" class="btn btn-outline-info" data-toggle="tooltip" data-placement="bottom" title="Atualizar Endereço" data-original-title="Atualizar Endereço"><i class="fa fa-edit"></i> </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            }
+    </div>
+</div>
+
+<div id="myModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
+
+
+
+@section ScriptsBlock {
+
+    <script>
+        SetModal();
+    </script>
+
+}
+

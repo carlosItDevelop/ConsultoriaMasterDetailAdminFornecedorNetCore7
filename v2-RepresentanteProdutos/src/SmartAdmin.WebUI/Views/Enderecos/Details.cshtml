@@ -1,0 +1,84 @@
+﻿@using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
+@model EnderecoViewModel
+
+<!-- INVOICE TRIAGEM  -->
+@{
+    ViewData["Title"] = $"Detalhe do Endereco - {Model.Logradouro}";
+    ViewData["PageName"] = "detalhe-de-produto";
+    ViewData["Category1"] = "Endereco";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Detalhes do Endereco: "+Model.Logradouro;
+}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+
+                    <div class="panel panel-body">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <dl>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.FornecedorId)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Fornecedor.Nome)
+                                    </dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.Logradouro)</dt>
+                                    <dd>@Html.DisplayFor(model => model.Logradouro)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.Numero)</dt>
+                                    <dd>@Html.DisplayFor(model => model.Numero)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.Complemento)</dt>
+                                    <dd>@Html.DisplayFor(model => model.Complemento)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.Cep)</dt>
+                                    <dd>@Html.DisplayFor(model => model.Cep)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.Bairro)</dt>
+                                    <dd>@Html.DisplayFor(model => model.Bairro)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.Cidade)</dt>
+                                    <dd>@Html.DisplayFor(model => model.Cidade)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.Estado)</dt>
+                                    <dd>@Html.DisplayFor(model => model.Estado)</dd>
+
+                                </dl>
+
+                                <div>
+                                    <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+                                    <a class="btn btn-outline-secondary" href="javascript:window.history.back();">Voltar</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+
+
+}
