@@ -6,6 +6,8 @@
 	- v2: Representante Legal como complemento de Master / Fornecedor e Produtos como Detail;
 	- v3: Representante Legal como complemento de Master / Fornecedor e Endereço como Detail;
 	
+- Scripts das bases de dados populadas para com exemplos: [acesse](https://github.com/carlosItDevelop/ConsultoriaMasterDetailAdminFornecedorNetCore7/tree/main/databaseScripts)	
+	
 ## Logo vou liberar os vídeos sobre os projetos.
 
 	
