@@ -1,0 +1,95 @@
+﻿
+@using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
+@model IEnumerable<FornecedorViewModel>
+
+
+@{
+    ViewData["Title"] = "Listagem de Fornecedores";
+    ViewData["PageName"] = "lista-de-fornecedores";
+    ViewData["Category1"] = "Fornecedores";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Listagem de fornecedores: <span class='fw-300'>Módulo Fornecedores</span> <sup class='badge badge-primary fw-500'>ADDON</sup>";
+}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+
+    <link rel="stylesheet" media="screen, print" href="~/css/theme-demo.css">
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    <a class="btn btn-outline-info" asp-action="Create">Novo Fornecedor</a>
+
+                </h2>
+                <div class="panel-toolbar">
+
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Collapse"></button>
+
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Fullscreen"></button>
+
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Close"></button>
+
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+
+                    <table id="dt-basic-fornecedores" class="table table-bordered table-hover table-striped w-100 dt-basic-srmartadmin">
+
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Documento)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ativo)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nome)
+                                    </td>
+                                    <td>
+                                        @this.FormataDocumento(item.TipoFornecedor, item.Documento)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ativo)
+                                    </td>
+                                    <td class="text-right">
+                                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
+                                        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
+                                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+@section ScriptsBlock {
+    <partial name="PartialViews/_ScriptDataTables" />
+}

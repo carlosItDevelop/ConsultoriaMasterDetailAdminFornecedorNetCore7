@@ -1,0 +1,108 @@
+﻿@using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
+@model IEnumerable<EnderecoViewModel>
+
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    <span supress-by-claim-name="Endereco" supress-by-claim-value="Adicionar">
+                        <a class="btn btn-outline-info btn-sm" asp-controller="Enderecos" asp-action="Create">Novo Endereço</a>&nbsp;&nbsp;
+                    </span>&nbsp;
+
+
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+
+                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100 dt-basic-srmartadmin">
+
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Logradouro)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Numero)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Complemento)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cep)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Bairro)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cidade)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Estado)
+                                </th>
+
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Logradouro)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Numero)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Complemento)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cep)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Bairro)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cidade)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Estado)
+                                    </td>
+                                    <td class="text-right">
+                                        <a class="btn btn-outline-warning" asp-controller="Enderecos" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam> </a>
+                                        <a disable-by-claim-name="Endereco" disable-by-claim-value="Editar" class="btn btn-outline-info" asp-controller="Enderecos" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam> </a>
+                                        <a disable-by-claim-name="Endereco" disable-by-claim-value="Excluir" class="btn btn-outline-danger" asp-controller="Enderecos" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@section ScriptsBlock {
+    <partial name="PartialViews/_ScriptDataTables" />
+}

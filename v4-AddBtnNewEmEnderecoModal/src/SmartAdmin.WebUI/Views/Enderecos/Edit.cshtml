@@ -1,0 +1,113 @@
+﻿@using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
+@model EnderecoViewModel
+
+<!-- INVOICE TRIAGEM  -->
+@{
+    ViewData["Title"] = $"Editar Endereco - {Model.Logradouro}";
+    ViewData["PageName"] = "editar-produto";
+    ViewData["Category1"] = "Endereco";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Editar Endereco: " + Model.Logradouro;
+}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+
+                    <div class="panel panel-body">
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <form enctype="multipart/form-data" asp-action="Edit">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <input type="hidden" asp-for="Id" />
+
+                                    <div class="form-group">
+                                        <label asp-for="FornecedorId" class="control-label"></label><br />
+                                        <label><b>@Model.Fornecedor.Nome</b></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Logradouro" class="control-label"></label>
+                                        <input asp-for="Logradouro" class="form-control" />
+                                        <span asp-validation-for="Logradouro" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Numero" class="control-label"></label>
+                                        <input asp-for="Numero" class="form-control" />
+                                        <span asp-validation-for="Numero" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="Complemento" class="control-label"></label>
+                                        <textarea cols="40" rows="5" asp-for="Complemento" class="form-control"></textarea>
+                                        <span asp-validation-for="Complemento" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Cep" class="control-label"></label>
+                                        <input asp-for="Cep" class="form-control" />
+                                        <span asp-validation-for="Cep" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Bairro" class="control-label"></label>
+                                        <input asp-for="Bairro" class="form-control" />
+                                        <span asp-validation-for="Bairro" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Cidade" class="control-label"></label>
+                                        <input asp-for="Cidade" class="form-control" />
+                                        <span asp-validation-for="Cidade" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Estado" class="control-label"></label>
+                                        <input asp-for="Estado" class="form-control" />
+                                        <span asp-validation-for="Estado" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" value="Salvar" class="btn btn-outline-success">Salvar</button>
+                                        <a class="btn btn-outline-secondary" href="javascript:window.history.back();">Voltar</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#ImagemUpload").change(function () {
+            $("#img_nome").text(this.files[0].name);
+            $("#img_nome")[0].style.display = 'block';
+        });
+    </script>
+}
+
+
+

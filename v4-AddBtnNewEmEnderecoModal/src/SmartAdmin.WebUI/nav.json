@@ -1,0 +1,175 @@
+{
+  "version": "4.5",
+  "lists": [
+    {
+      "title": "Dashboard",
+      "icon": "fal fa-chart-pie",
+      "href": "intel_analytics_dashboard.html",
+      "roles": []
+    },
+    {
+      "title": "Marketing Dashboard",
+      "icon": "fal fa-chart-bar",
+      "href": "intel_marketing_dashboard.html",
+      "roles": []
+    },
+    {
+      "title": "Catalogos e Servicos",
+      "roles": [
+        "Administrator"
+      ]
+    },
+    {
+      "title": "Fornecedores",
+      "icon": "fal fa-briefcase-medical",
+      "roles": [
+        "Administrator"
+      ],
+      "items": [
+        {
+          "title": "Lista de Fornecedores",
+          "href": "lista-de-fornecedores",
+          "roles": []
+        }
+      ]
+    },
+    {
+      "title": "Enderecos",
+      "icon": "fal fa-briefcase-medical",
+      "roles": [
+        "Administrator"
+      ],
+      "items": [
+        {
+          "title": "Lista de Enderecos",
+          "href": "lista-de-enderecos",
+          "roles": []
+        }
+      ]
+    },
+    {
+      "title": "UI Components",
+      "icon": "fal fa-window",
+      "roles": [
+        "Administrator"
+      ],
+      "items": [
+        {
+          "title": "Alerts",
+          "href": "ui_alerts.html",
+          "roles": []
+        },
+        {
+          "title": "Accordions",
+          "href": "ui_accordion.html",
+          "roles": []
+        },
+        {
+          "title": "Badges",
+          "href": "ui_badges.html",
+          "roles": []
+        },
+        {
+          "title": "Breadcrumbs",
+          "href": "ui_breadcrumbs.html",
+          "roles": []
+        },
+        {
+          "title": "Buttons",
+          "href": "ui_buttons.html",
+          "roles": []
+        },
+        {
+          "title": "Button Group",
+          "href": "ui_button_group.html",
+          "roles": []
+        },
+        {
+          "title": "Cards",
+          "href": "ui_cards.html",
+          "roles": []
+        },
+        {
+          "title": "Carousel",
+          "href": "ui_carousel.html",
+          "roles": []
+        },
+        {
+          "title": "Collapse",
+          "href": "ui_collapse.html",
+          "roles": []
+        },
+        {
+          "title": "Dropdowns",
+          "href": "ui_dropdowns.html",
+          "roles": []
+        },
+        {
+          "title": "List Filter",
+          "href": "ui_list_filter.html",
+          "roles": []
+        },
+        {
+          "title": "Modal",
+          "href": "ui_modal.html",
+          "roles": []
+        },
+        {
+          "title": "Navbars",
+          "href": "ui_navbars.html",
+          "roles": []
+        },
+        {
+          "title": "Panels",
+          "href": "ui_panels.html",
+          "roles": []
+        },
+        {
+          "title": "Pagination",
+          "href": "ui_pagination.html",
+          "roles": []
+        },
+        {
+          "title": "Popovers",
+          "href": "ui_popovers.html",
+          "roles": []
+        },
+        {
+          "title": "Progress Bars",
+          "href": "ui_progress_bars.html",
+          "roles": []
+        },
+        {
+          "title": "ScrollSpy",
+          "href": "ui_scrollspy.html",
+          "roles": []
+        },
+        {
+          "title": "Side Panel",
+          "href": "ui_side_panel.html",
+          "roles": []
+        },
+        {
+          "title": "Spinners",
+          "href": "ui_spinners.html",
+          "roles": []
+        },
+        {
+          "title": "Tabs & Pills",
+          "href": "ui_tabs_pills.html",
+          "roles": []
+        },
+        {
+          "title": "Toasts",
+          "href": "ui_toasts.html",
+          "roles": []
+        },
+        {
+          "title": "Tooltips",
+          "href": "ui_tooltips.html",
+          "roles": []
+        }
+      ]
+    }
+  ]
+}

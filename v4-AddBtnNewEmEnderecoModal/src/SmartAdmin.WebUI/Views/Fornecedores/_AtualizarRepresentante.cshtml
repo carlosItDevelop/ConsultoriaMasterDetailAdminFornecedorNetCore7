@@ -1,0 +1,40 @@
+﻿@using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
+@model FornecedorViewModel
+@{
+    ViewData["Title"] = "Atualizar Endereço";
+}
+
+<div class="modal-header">
+    <h4 class="modal-title">@ViewData["Title"]</h4>
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+    </button>
+</div>
+
+<form asp-action="AtualizarRepresentanteLegal">
+    <div class="modal-body">
+
+        <input type="hidden" asp-for="RepresentanteLegal.FornecedorId" />
+        <input type="hidden" asp-for="RepresentanteLegal.Id" />
+
+        <partial name="_Representante" />
+
+        <div class="modal-footer">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Atualizar Endereço" class="btn btn-success" />
+                <input type="button" class="btn btn-info" value="Fechar" data-dismiss="modal" />
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            SetModal();
+        });
+    </script>
+}
+

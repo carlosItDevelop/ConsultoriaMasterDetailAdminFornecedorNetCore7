@@ -1,0 +1,34 @@
+﻿@using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
+@model IEnumerable<EnderecoViewModel>
+
+
+@{
+    ViewData["Title"] = "Listagem de Enderecos";
+    ViewData["PageName"] = "lista-de-enderecos";
+    ViewData["Category1"] = "Enderecos";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Listagem de Endereços: <span class='fw-300'>Módulo Endereço</span> <sup class='badge badge-primary fw-500'>ADDON</sup>";
+    ViewData["PageDescription"] = "Exporte os dados para PDF, Excel e CSV sem qualquer complicação!";
+}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+
+            <vc:summary></vc:summary>
+            <partial name="_ListaEnderecos" />
+
+        </div>
+    </div>
+</div>
+
+
+
+@section ScriptsBlock {
+    <partial name="PartialViews/_ScriptDataTables" />
+}

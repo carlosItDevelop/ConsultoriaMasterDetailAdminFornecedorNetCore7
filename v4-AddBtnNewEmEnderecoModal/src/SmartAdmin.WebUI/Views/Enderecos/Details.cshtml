@@ -1,0 +1,71 @@
+﻿@using Cooperchip.ITDeveloper.Mvc.ServiceApp.ViewModels;
+@model EnderecoViewModel
+
+<!-- INVOICE TRIAGEM  -->
+@{
+    ViewData["Title"] = $"Detalhe do Endereco - {Model.Logradouro}";
+    ViewData["PageName"] = "detalhe-de-produto";
+    ViewData["Category1"] = "Endereco";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Detalhes do Endereco: " + Model.Logradouro;
+}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/page-invoice.css">
+}
+<div class="container">
+    <div data-size="A4">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="fw-400 display-4 fw-350 color-primary-600 keep-print-font pt-4 l-h-n m-0">
+                    @Model.Logradouro
+                </h3>
+                <hr />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 d-flex">
+                <div class="table-responsive">
+
+                    <div class="col-md-6">
+                        <dl>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FornecedorId)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Fornecedor.Nome)
+                            </dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Logradouro)</dt>
+                            <dd>@Html.DisplayFor(model => model.Logradouro)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Numero)</dt>
+                            <dd>@Html.DisplayFor(model => model.Numero)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Complemento)</dt>
+                            <dd>@Html.DisplayFor(model => model.Complemento)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Cep)</dt>
+                            <dd>@Html.DisplayFor(model => model.Cep)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Bairro)</dt>
+                            <dd>@Html.DisplayFor(model => model.Bairro)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Cidade)</dt>
+                            <dd>@Html.DisplayFor(model => model.Cidade)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Estado)</dt>
+                            <dd>@Html.DisplayFor(model => model.Estado)</dd>
+
+                        </dl>
+
+                        <div>
+                            <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+                            <a class="btn btn-outline-secondary" href="javascript:window.history.back();">Voltar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
